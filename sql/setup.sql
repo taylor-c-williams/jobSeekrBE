@@ -10,7 +10,7 @@ CREATE TABLE users (
 
 CREATE TABLE jobs (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  user_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id),
   fav BOOLEAN,
   remote VARCHAR(6),
@@ -24,8 +24,8 @@ CREATE TABLE jobs (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   last_updated TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   url VARCHAR(256),
-  description VARCHAR(1024),
-  notes VARCHAR(1024),
-  contact VARCHAR(256)
+  description TEXT,
+  notes TEXT,
+  contact TEXT
 );
 
