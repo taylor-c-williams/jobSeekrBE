@@ -16,7 +16,7 @@ const registerAndLogin = async (userProps = {}) => {
   const agent = request.agent(app);
   const user = await UserService.create({ ...mockUser, ...userProps });
   const { username } = user;
-  await (await agent.post('/api/v1/users/sessions')).send({ username, password });
+  await agent.post('/api/v1/users/sessions').send({ username, password });
   return [agent, user];
 };
 
@@ -34,10 +34,17 @@ describe ('User route tests', () => {
     const res = await await request(app).post('/api/v1/users/register').send(mockUser);
     const { username } = mockUser;
 
-    console.log(res.body);
     expect(res.body).toEqual({
       id: expect.any(String),
       username
+    });
+  });
+
+  it('logs in a mock user', async () => {
+    const [agent] = await registerAndLogin();
+    const sessions = await agent.post('/api/v1/users/login').send(mockUser);
+    expect(sessions.body).toEqual({
+      message: 'Login Successful!'
     });
   });
 });
