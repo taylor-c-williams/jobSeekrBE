@@ -40,7 +40,7 @@ describe ('User route tests', () => {
     });
   });
 
-  it('logs in a mock user', async () => {
+  it.skip('logs in a mock user', async () => {
     const [agent] = await registerAndLogin();
     const sessions = await agent.post('/api/v1/users/login').send(mockUser);
 
