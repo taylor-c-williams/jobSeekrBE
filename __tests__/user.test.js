@@ -44,16 +44,15 @@ describe ('User route tests', () => {
     const [agent] = await registerAndLogin();
     const sessions = await agent.post('/api/v1/users/login').send(mockUser);
 
-    expect(sessions.body).toEqual({
+    expect(sessions.body).toEqual(expect.objectContaining({
       message: 'Login Successful!'
-    });
+    }));
   });
 
   it('logs a user out', async () => {
     const [agent] = await registerAndLogin();
     const res = await agent.delete('/api/v1/users/login').send(mockUser);
 
-    console.log(res.body);
     expect(res.body).toEqual({
       success: true,
       message: 'Logged out successfully!'
