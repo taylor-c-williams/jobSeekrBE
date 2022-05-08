@@ -4,6 +4,7 @@ const request = require('supertest');
 const app = require('../lib/app');
 const UserService = require('../lib/services/UserService');
 
+
 // Dummy user object
 const mockUser = {
   username: 'taylor_is_cool',
@@ -31,7 +32,7 @@ describe ('User route tests', () => {
   });
 
   it('creates a new user', async () => {
-    const res = await await request(app).post('/api/v1/users/register').send(mockUser);
+    const res = await request(app).post('/api/v1/users/register').send(mockUser);
     const { username } = mockUser;
 
     expect(res.body).toEqual({
