@@ -4,6 +4,7 @@ const request = require('supertest');
 const app = require('../lib/app');
 const UserService = require('../lib/services/UserService');
 
+const agent = request.agent(app);
 
 // Dummy user object
 const mockUser = {
@@ -14,10 +15,9 @@ const mockUser = {
 // Helper function registers & logs in with our mock user
 const registerAndLogin = async (userProps = {}) => {
   const password = userProps.password ?? mockUser.password;
-  const agent = request.agent(app);
   const user = await UserService.create({ ...mockUser, ...userProps });
   const { username } = user;
-  await agent.post('/api/v1/users/sessions').send({ username, password });
+  await agent.post('/api/v1/users/login').send({ username, password });
   return [agent, user];
 };
 

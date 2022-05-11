@@ -4,6 +4,8 @@ const request = require('supertest');
 const app = require('../lib/app');
 const UserService = require('../lib/services/UserService');
 
+const agent = request.agent(app);
+
 // Mock Job Object
 const mockJob = {
   fav: false,
@@ -27,17 +29,6 @@ const mockUser = {
   password: '12345'
 };
 
-// Helper function registers & logs in with our mock user
-const registerAndLogin = async (userProps = {}) => {
-  const password = userProps.password ?? mockUser.password;
-  const agent = request.agent(app);
-  const user = await UserService.create({ ...mockUser, ...userProps });
-  const { username } = user;
-  await agent.post('/api/v1/users').send({ username, password });
-  await agent.post('/api/v1/jobs').send({ ...mockJob, user_id: user.id });
-  return [agent, user];
-};
-
 describe ('Job route tests', () => {
 
   beforeEach(() => {
@@ -49,12 +40,14 @@ describe ('Job route tests', () => {
   });
 
   it('allows a logged in user to add a new job', async () => {
-    const [agent, user] = await registerAndLogin();
+    const user = await UserService.create({ ...mockUser });
+    await agent.post('/api/v1/users/login').send({ username: user.username, password: mockUser.password });
     const res = await agent.post('/api/v1/jobs').send({ ...mockJob, user_id: user.id });
     expect(res.body).toEqual({
       id: expect.any(String),
-      createdAt: expect.any(String),
-      userId: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
       ...mockJob,
     });
   });
