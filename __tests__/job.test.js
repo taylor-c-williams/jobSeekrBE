@@ -63,7 +63,6 @@ const post2Jobs = async (userId) => {
 describe ('Job route tests', () => {
 
   beforeEach(() => {
-    deleteAllJobs();
     return setup(pool);
   });
 
@@ -88,6 +87,7 @@ describe ('Job route tests', () => {
 
   // Test: Auth + Get All user's jobs
   it('allows a logged in user to get all of their jobs', async () => {
+    await deleteAllJobs();
     const user = await mockUserLogin();
     await post2Jobs(user.id);
 
@@ -111,7 +111,7 @@ describe ('Job route tests', () => {
 
   // Test: Auth + Delete Job
   it('allows a logged in user to delete job', async () => {
-
+    await deleteAllJobs();
     const user = await mockUserLogin();
     await post2Jobs(user.id);
 
@@ -128,6 +128,7 @@ describe ('Job route tests', () => {
 
   // Test: Auth + Get Job By ID
   it('allows a logged in user to get a job by ID', async () => {
+    await deleteAllJobs();
     const user = await mockUserLogin();
     await post2Jobs(user.id);
 
