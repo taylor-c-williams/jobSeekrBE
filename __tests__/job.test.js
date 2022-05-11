@@ -73,10 +73,7 @@ describe ('Job route tests', () => {
 
   // Test: Auth + Add new Job
   it('allows a logged in user to add a new job', async () => {
-    
-    // Create new user & log in
-    const user = await mockUserLogin();
-  
+    const user = await mockUserLogin();  
     // Post 1 new Job
     const res = await agent.post('/api/v1/jobs').send({ ...mockJob, user_id: user.id });
     
@@ -89,9 +86,8 @@ describe ('Job route tests', () => {
     });
   });
 
-  // Test: Auth + get all user's jobs
+  // Test: Auth + Get All user's jobs
   it('allows a logged in user to get all of their jobs', async () => {
-
     const user = await mockUserLogin();
     await post2Jobs(user.id);
 
@@ -130,27 +126,19 @@ describe ('Job route tests', () => {
     }]);
   });
 
-  // Test: Auth + get all user's jobs
-  it('allows a logged in user to get all of their jobs', async () => {
-
+  // Test: Auth + Get Job By ID
+  it('allows a logged in user to get a job by ID', async () => {
     const user = await mockUserLogin();
     await post2Jobs(user.id);
 
-    const res = await agent.get('/api/v1/jobs');
+    const res = await agent.get('/api/v1/jobs/1');
     expect(res.body).toEqual([{
       id: expect.any(String),
       created_at: expect.any(String),
       last_updated: expect.any(String),
       user_id: expect.any(String),
       ...mockJob,
-    },
-    {
-      id: expect.any(String),
-      created_at: expect.any(String),
-      last_updated: expect.any(String),
-      user_id: expect.any(String),
-      ...mockJob2,
-    }  
+    }
     ]);
   });
 
