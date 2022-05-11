@@ -10,7 +10,7 @@
     - Log in / Sign up ✓
     - Post new job ✓
     - Edit job
-    - Delete Job
+    - Delete Job ✓
     - Get all jobs
     - Get job by id ✓
     - Get all jobs WHERE
