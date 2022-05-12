@@ -146,8 +146,8 @@ describe ('Job route tests', () => {
     const user = await mockUserLogin();
     await post2Jobs(user.id);
 
-    const res = await agent.patch('/api/v1/jobs/1').send({ fav: true });
-    expect(res.body).toEqual({ ...mockJob, fav: true }); 
+    const res = await agent.patch('/api/v1/jobs/1').send({ ...mockJob, fav: true });
+    expect(res.body).toEqual(expect.objectContaining({ ...mockJob, fav: true })); 
   });
 
 });
