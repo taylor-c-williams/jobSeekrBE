@@ -17,6 +17,7 @@ CREATE TABLE jobs (
   zipcode INTEGER,
   applied BOOLEAN,
   phone_screen BOOLEAN,
+  interviewed BOOLEAN,
   take_home BOOLEAN,
   offer BOOLEAN,
   rejected BOOLEAN,

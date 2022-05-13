@@ -14,6 +14,7 @@ const mockJob = {
   zipcode: 97202,
   applied: true,
   phone_screen: true,
+  interviewed: false,
   take_home: true,
   offer: false,
   rejected: false,
@@ -30,6 +31,7 @@ const mockJob2 = {
   zipcode: 12345,
   applied: true,
   phone_screen: true,
+  interviewed: true,
   take_home: true,
   offer: false,
   rejected: false,
@@ -128,7 +130,9 @@ describe ('Job route tests', () => {
   // Test: Auth + Get Job By ID
   it('allows a logged in user to get a job by ID', async () => {
     const user = await mockUserLogin();
-    await post2Jobs(user.id);
+    const twoJobs = await post2Jobs(user.id);
+    console.log('jobs/1');
+    console.log(twoJobs);
 
     const res = await agent.get('/api/v1/jobs/1');
     expect(res.body).toEqual([{
@@ -148,6 +152,27 @@ describe ('Job route tests', () => {
 
     const res = await agent.patch('/api/v1/jobs/1').send({ ...mockJob, fav: true });
     expect(res.body).toEqual(expect.objectContaining({ ...mockJob, fav: true })); 
+  });
+
+  // Test: Auth + Get all Interviewed Jobs
+  it('allows a logged in user to get all interviewed jobs', async () => {
+    const user = await mockUserLogin();
+    const twoJobs = await post2Jobs(user.id);
+
+    const res = await agent.get('/api/v1/jobs/interviewed');
+    console.log('interviewed');
+    console.log(twoJobs);
+    expect(res.body).toEqual([{
+      id: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
+      ...mockJob2,
+    }
+    // It seems the error is coming from the ID row on the Jobs table,
+    // when I swap the input type from BIGINT to INTEGER, it reflects in the 
+    // err msg
+    ]);
   });
 
 });

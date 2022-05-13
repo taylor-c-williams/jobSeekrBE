@@ -9,7 +9,7 @@
 
     - Log in / Sign up ✓
     - Post new job ✓
-    - Edit job
+    - Edit job ✓
     - Delete Job ✓
     - Get all jobs
     - Get job by id ✓
