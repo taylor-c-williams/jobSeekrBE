@@ -15,6 +15,7 @@ CREATE TABLE jobs (
   fav BOOLEAN,
   remote VARCHAR(6),
   zipcode INTEGER,
+  wishlist BOOLEAN,
   applied BOOLEAN,
   phone_screen BOOLEAN,
   interviewed BOOLEAN,

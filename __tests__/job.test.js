@@ -12,6 +12,7 @@ const mockJob = {
   fav: false,
   remote: 'hybrid',
   zipcode: 97202,
+  wishlist: true,
   applied: false,
   phone_screen: true,
   interviewed: false,
@@ -30,6 +31,7 @@ const mockJob2 = {
   fav: true,
   remote: 'hybrid',
   zipcode: 12345,
+  wishlist: false,
   applied: true,
   phone_screen: true,
   interviewed: true,
@@ -293,6 +295,21 @@ describe ('Job route tests', () => {
       last_updated: expect.any(String),
       user_id: expect.any(String),
       ...mockJob2,
+    }
+    ]);
+  });
+
+  // Test: Auth + Get all Wishlisted Jobs
+  it('allows a logged in user to get all wishlist = true jobs', async () => {
+    const user = await mockUserLogin();
+    await post2Jobs(user.id);
+    const res = await agent.get('/api/v1/jobs/wishlist');
+    expect(res.body).toEqual([{
+      id: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
+      ...mockJob,
     }
     ]);
   });
