@@ -16,6 +16,7 @@ const mockJob = {
   phone_screen: true,
   interviewed: false,
   take_home: false,
+  technical_interview: false,
   offer: false,
   rejected: false,
   accepted: false,
@@ -33,6 +34,7 @@ const mockJob2 = {
   phone_screen: true,
   interviewed: true,
   take_home: true,
+  technical_interview: true,
   offer: false,
   rejected: false,
   accepted: false,
@@ -50,7 +52,7 @@ const mockUser = {
 
 // Create User & Log In (Delete all test jobs first)
 const mockUserLogin = async () => { 
-  // await deleteAllJobs();
+  await deleteAllJobs();
   const user = await UserService.create({ ...mockUser });
   await agent.post('/api/v1/users/login').send({ username: user.username, password: mockUser.password });
   return user;

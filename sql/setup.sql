@@ -19,6 +19,7 @@ CREATE TABLE jobs (
   phone_screen BOOLEAN,
   interviewed BOOLEAN,
   take_home BOOLEAN,
+  technical_interview BOOLEAN,
   offer BOOLEAN,
   rejected BOOLEAN,
   accepted BOOLEAN,
