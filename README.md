@@ -25,8 +25,8 @@
     	○ Rejected = true ✓
     	○ Remote =
             true ✓
-            false
-            hybrid
+            false ✓
+            hybrid ✓
     - CRUD: Journal
     - CRUD: Profile
 
@@ -52,3 +52,7 @@
     - Contact ?: varchar
 
 - Zip code: int
+
+### Contacts table
+
+### Profile Table
