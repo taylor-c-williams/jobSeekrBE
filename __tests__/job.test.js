@@ -182,6 +182,28 @@ describe ('Job route tests', () => {
     ]);
   });
 
+  // Test: Auth + Get all Phone Screened Jobs
+  it('allows a logged in user to get all phone_screen = true jobs', async () => {
+    const user = await mockUserLogin();
+    await post2Jobs(user.id);
+    const res = await agent.get('/api/v1/jobs/phone-screened');
+    expect(res.body).toEqual([{
+      id: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
+      ...mockJob,
+    },
+    {
+      id: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
+      ...mockJob2,
+    }
+    ]);
+  });
+
   // Test: Auth + Get all Interviewed Jobs
   it('allows a logged in user to get all interviewed = true jobs', async () => {
     const user = await mockUserLogin();

@@ -14,8 +14,10 @@
     - Get all jobs
     - Get job by id ✓
     - Get all jobs WHERE
+        ○ Fav = true ✓
+        ○ Applied = true ✓
+        ○ Phone Screen = true ✓
     	○ Interviewed = true ✓
-    	○ Applied = true ✓
     	○ Offer = true
     	○ Rejected = true
     	○ Starred = true
