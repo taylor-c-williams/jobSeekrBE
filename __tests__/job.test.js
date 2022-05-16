@@ -12,7 +12,7 @@ const mockJob = {
   fav: false,
   remote: 'hybrid',
   zipcode: 97202,
-  applied: true,
+  applied: false,
   phone_screen: true,
   interviewed: false,
   take_home: true,
@@ -153,10 +153,10 @@ describe ('Job route tests', () => {
   });
 
   // Test: Auth + Get all Interviewed Jobs
-  it('allows a logged in user to get all interviewed jobs', async () => {
+  it('allows a logged in user to get all interviewed = true jobs', async () => {
     const user = await mockUserLogin();
     await post2Jobs(user.id);
-    const res = await agent.get('/api/v1/jobs/interviewed/');
+    const res = await agent.get('/api/v1/jobs/interviewed');
     expect(res.body).toEqual([{
       id: expect.any(String),
       created_at: expect.any(String),
@@ -164,9 +164,21 @@ describe ('Job route tests', () => {
       user_id: expect.any(String),
       ...mockJob2,
     }
-    // It seems the error is coming from the ID row on the Jobs table,
-    // when I swap the input type from BIGINT to INTEGER, it reflects in the 
-    // err msg
+    ]);
+  });
+
+  // Test: Auth + Get all Applied Jobs
+  it('allows a logged in user to get all applied = true jobs', async () => {
+    const user = await mockUserLogin();
+    await post2Jobs(user.id);
+    const res = await agent.get('/api/v1/jobs/applied');
+    expect(res.body).toEqual([{
+      id: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
+      ...mockJob2,
+    }
     ]);
   });
 

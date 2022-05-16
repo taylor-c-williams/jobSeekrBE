@@ -14,7 +14,7 @@
     - Get all jobs
     - Get job by id ✓
     - Get all jobs WHERE
-    	○ Interviewed = true
+    	○ Interviewed = true ✓
     	○ Applied = true
     	○ Offer = true
     	○ Rejected = true
