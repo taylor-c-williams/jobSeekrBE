@@ -21,8 +21,7 @@
     	○ Take Home = true ✓
     	○ Tech interview = true ✓
     	○ Offer = true ✓
-    	○ Rejected = true
-    	○ Starred = true
+    	○ Rejected = true ✓
     - CRUD: Journal
     - CRUD: Profile
 

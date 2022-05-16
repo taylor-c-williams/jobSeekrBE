@@ -18,7 +18,7 @@ const mockJob = {
   take_home: false,
   technical_interview: false,
   offer: false,
-  rejected: false,
+  rejected: true,
   accepted: false,
   url: 'http://www.glassdoor.com/',
   description: 'A cool job',
@@ -37,7 +37,7 @@ const mockJob2 = {
   technical_interview: true,
   offer: true,
   rejected: false,
-  accepted: false,
+  accepted: true,
   url: 'https://taylorcallanwilliams.io',
   description: 'A cool job',
   notes: 'Taylor is Cool',
@@ -256,6 +256,37 @@ describe ('Job route tests', () => {
     const user = await mockUserLogin();
     await post2Jobs(user.id);
     const res = await agent.get('/api/v1/jobs/offer');
+    expect(res.body).toEqual([{
+      id: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
+      ...mockJob2,
+    }
+    ]);
+  });
+
+  
+  // Test: Auth + Get all Rejected Jobs
+  it('allows a logged in user to get all rejected = true jobs', async () => {
+    const user = await mockUserLogin();
+    await post2Jobs(user.id);
+    const res = await agent.get('/api/v1/jobs/rejected');
+    expect(res.body).toEqual([{
+      id: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
+      ...mockJob,
+    }
+    ]);
+  });
+
+  // Test: Auth + Get all Accepted Jobs
+  it('allows a logged in user to get all accepted = true jobs', async () => {
+    const user = await mockUserLogin();
+    await post2Jobs(user.id);
+    const res = await agent.get('/api/v1/jobs/accepted');
     expect(res.body).toEqual([{
       id: expect.any(String),
       created_at: expect.any(String),
