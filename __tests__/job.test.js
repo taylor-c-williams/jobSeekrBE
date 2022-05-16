@@ -236,4 +236,19 @@ describe ('Job route tests', () => {
     ]);
   });
 
+  // Test: Auth + Get all Technically Interviewed Jobs
+  it('allows a logged in user to get all technical_interview = true jobs', async () => {
+    const user = await mockUserLogin();
+    await post2Jobs(user.id);
+    const res = await agent.get('/api/v1/jobs/tech-interview');
+    expect(res.body).toEqual([{
+      id: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
+      ...mockJob2,
+    }
+    ]);
+  });
+
 });

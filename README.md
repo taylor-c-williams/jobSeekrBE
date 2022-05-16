@@ -19,6 +19,7 @@
         ○ Phone Screen = true ✓
     	○ Interviewed = true ✓
     	○ Take Home = true ✓
+    	○ Tech interview = true ✓
     	○ Offer = true
     	○ Rejected = true
     	○ Starred = true
