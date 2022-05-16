@@ -332,7 +332,7 @@ describe ('Job route tests', () => {
 
 
   // Test: Auth + Get all Non-Remote Jobs
-  it('allows a logged in user to get all remote = true jobs', async () => {
+  it('allows a logged in user to get all remote = false jobs', async () => {
     const user = await mockUserLogin();
     await post2Jobs(user.id);
     await agent.patch('/api/v1/jobs/1').send({ ...mockJob, remote: 'false' });
@@ -344,6 +344,21 @@ describe ('Job route tests', () => {
       user_id: expect.any(String),
       ...mockJob,
       remote: 'false',
+    }
+    ]);
+  });
+
+  // Test: Auth + Get all Remote Jobs
+  it('allows a logged in user to get all remote = hybrid jobs', async () => {
+    const user = await mockUserLogin();
+    await post2Jobs(user.id);
+    const res = await agent.get('/api/v1/jobs/hybrid');
+    expect(res.body).toEqual([{
+      id: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
+      ...mockJob2,
     }
     ]);
   });
