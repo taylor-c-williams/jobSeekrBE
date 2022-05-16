@@ -26,7 +26,7 @@ const mockJob = {
 };
 
 const mockJob2 = {
-  fav: false,
+  fav: true,
   remote: 'hybrid',
   zipcode: 12345,
   applied: true,
@@ -152,11 +152,11 @@ describe ('Job route tests', () => {
     expect(res.body).toEqual(expect.objectContaining({ ...mockJob, fav: true })); 
   });
 
-  // Test: Auth + Get all Interviewed Jobs
-  it('allows a logged in user to get all interviewed = true jobs', async () => {
+  // Test: Auth + Get all Favorite Jobs
+  it('allows a logged in user to get all fav = true jobs', async () => {
     const user = await mockUserLogin();
     await post2Jobs(user.id);
-    const res = await agent.get('/api/v1/jobs/interviewed');
+    const res = await agent.get('/api/v1/jobs/fav');
     expect(res.body).toEqual([{
       id: expect.any(String),
       created_at: expect.any(String),
@@ -172,6 +172,21 @@ describe ('Job route tests', () => {
     const user = await mockUserLogin();
     await post2Jobs(user.id);
     const res = await agent.get('/api/v1/jobs/applied');
+    expect(res.body).toEqual([{
+      id: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
+      ...mockJob2,
+    }
+    ]);
+  });
+
+  // Test: Auth + Get all Interviewed Jobs
+  it('allows a logged in user to get all interviewed = true jobs', async () => {
+    const user = await mockUserLogin();
+    await post2Jobs(user.id);
+    const res = await agent.get('/api/v1/jobs/interviewed');
     expect(res.body).toEqual([{
       id: expect.any(String),
       created_at: expect.any(String),
