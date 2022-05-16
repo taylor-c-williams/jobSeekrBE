@@ -12,9 +12,10 @@
     - Edit job ✓
     - Delete Job ✓
     - Get all jobs
-    - Get job by id ✓
+    - Get job by user id ✓
     - Get all jobs WHERE
         ○ Fav = true ✓
+        ○ Wishlist = true ✓
         ○ Applied = true ✓
         ○ Phone Screen = true ✓
     	○ Interviewed = true ✓
@@ -22,6 +23,10 @@
     	○ Tech interview = true ✓
     	○ Offer = true ✓
     	○ Rejected = true ✓
+    	○ Remote =
+            true ✓
+            false
+            hybrid
     - CRUD: Journal
     - CRUD: Profile
 

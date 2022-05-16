@@ -10,7 +10,7 @@ const agent = request.agent(app);
 // Mock Job Objects
 const mockJob = {
   fav: false,
-  remote: 'hybrid',
+  remote: 'true',
   zipcode: 97202,
   wishlist: true,
   applied: false,
@@ -310,6 +310,40 @@ describe ('Job route tests', () => {
       last_updated: expect.any(String),
       user_id: expect.any(String),
       ...mockJob,
+    }
+    ]);
+  });
+
+  
+  // Test: Auth + Get all Remote Jobs
+  it('allows a logged in user to get all remote = true jobs', async () => {
+    const user = await mockUserLogin();
+    await post2Jobs(user.id);
+    const res = await agent.get('/api/v1/jobs/remote');
+    expect(res.body).toEqual([{
+      id: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
+      ...mockJob,
+    }
+    ]);
+  });
+
+
+  // Test: Auth + Get all Non-Remote Jobs
+  it('allows a logged in user to get all remote = true jobs', async () => {
+    const user = await mockUserLogin();
+    await post2Jobs(user.id);
+    await agent.patch('/api/v1/jobs/1').send({ ...mockJob, remote: 'false' });
+    const res = await agent.get('/api/v1/jobs/non-remote');
+    expect(res.body).toEqual([{
+      id: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
+      ...mockJob,
+      remote: 'false',
     }
     ]);
   });
