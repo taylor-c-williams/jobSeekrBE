@@ -18,6 +18,7 @@
         ○ Applied = true ✓
         ○ Phone Screen = true ✓
     	○ Interviewed = true ✓
+    	○ Take Home = true ✓
     	○ Offer = true
     	○ Rejected = true
     	○ Starred = true

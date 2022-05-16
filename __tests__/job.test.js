@@ -15,7 +15,7 @@ const mockJob = {
   applied: false,
   phone_screen: true,
   interviewed: false,
-  take_home: true,
+  take_home: false,
   offer: false,
   rejected: false,
   accepted: false,
@@ -209,6 +209,21 @@ describe ('Job route tests', () => {
     const user = await mockUserLogin();
     await post2Jobs(user.id);
     const res = await agent.get('/api/v1/jobs/interviewed');
+    expect(res.body).toEqual([{
+      id: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
+      ...mockJob2,
+    }
+    ]);
+  });
+
+  // Test: Auth + Get all Take Home Challenged Jobs
+  it('allows a logged in user to get all take_home = true jobs', async () => {
+    const user = await mockUserLogin();
+    await post2Jobs(user.id);
+    const res = await agent.get('/api/v1/jobs/take-home');
     expect(res.body).toEqual([{
       id: expect.any(String),
       created_at: expect.any(String),
