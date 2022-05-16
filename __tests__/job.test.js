@@ -50,7 +50,7 @@ const mockUser = {
 
 // Create User & Log In (Delete all test jobs first)
 const mockUserLogin = async () => { 
-  await deleteAllJobs();
+  // await deleteAllJobs();
   const user = await UserService.create({ ...mockUser });
   await agent.post('/api/v1/users/login').send({ username: user.username, password: mockUser.password });
   return user;
@@ -58,8 +58,8 @@ const mockUserLogin = async () => {
 
 // Post 2 mock jobs
 const post2Jobs = async (userId) => {
-  const res1 = await agent.post('/api/v1/jobs').send({ ...mockJob, user_id: userId });
-  const res2 = await agent.post('/api/v1/jobs').send({ ...mockJob2, user_id: userId });
+  const res1 = await agent.post('/api/v1/jobs').send({ user_id: userId, ...mockJob });
+  const res2 = await agent.post('/api/v1/jobs').send({ user_id: userId, ...mockJob2 });
   return [res1.body, res2.body];
 };
 
@@ -130,9 +130,7 @@ describe ('Job route tests', () => {
   // Test: Auth + Get Job By ID
   it('allows a logged in user to get a job by ID', async () => {
     const user = await mockUserLogin();
-    const twoJobs = await post2Jobs(user.id);
-    console.log('jobs/1');
-    console.log(twoJobs);
+    await post2Jobs(user.id);
 
     const res = await agent.get('/api/v1/jobs/1');
     expect(res.body).toEqual([{
@@ -157,11 +155,8 @@ describe ('Job route tests', () => {
   // Test: Auth + Get all Interviewed Jobs
   it('allows a logged in user to get all interviewed jobs', async () => {
     const user = await mockUserLogin();
-    const twoJobs = await post2Jobs(user.id);
-
-    const res = await agent.get('/api/v1/jobs/interviewed');
-    console.log('interviewed');
-    console.log(twoJobs);
+    await post2Jobs(user.id);
+    const res = await agent.get('/api/v1/jobs/interviewed/');
     expect(res.body).toEqual([{
       id: expect.any(String),
       created_at: expect.any(String),
