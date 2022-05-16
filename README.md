@@ -20,7 +20,7 @@
     	○ Interviewed = true ✓
     	○ Take Home = true ✓
     	○ Tech interview = true ✓
-    	○ Offer = true
+    	○ Offer = true ✓
     	○ Rejected = true
     	○ Starred = true
     - CRUD: Journal

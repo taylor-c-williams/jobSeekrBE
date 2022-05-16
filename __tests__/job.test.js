@@ -35,7 +35,7 @@ const mockJob2 = {
   interviewed: true,
   take_home: true,
   technical_interview: true,
-  offer: false,
+  offer: true,
   rejected: false,
   accepted: false,
   url: 'https://taylorcallanwilliams.io',
@@ -241,6 +241,21 @@ describe ('Job route tests', () => {
     const user = await mockUserLogin();
     await post2Jobs(user.id);
     const res = await agent.get('/api/v1/jobs/tech-interview');
+    expect(res.body).toEqual([{
+      id: expect.any(String),
+      created_at: expect.any(String),
+      last_updated: expect.any(String),
+      user_id: expect.any(String),
+      ...mockJob2,
+    }
+    ]);
+  });
+
+  // Test: Auth + Get all Offer Jobs
+  it('allows a logged in user to get all offer = true jobs', async () => {
+    const user = await mockUserLogin();
+    await post2Jobs(user.id);
+    const res = await agent.get('/api/v1/jobs/offer');
     expect(res.body).toEqual([{
       id: expect.any(String),
       created_at: expect.any(String),
