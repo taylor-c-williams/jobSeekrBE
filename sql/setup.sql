@@ -12,6 +12,8 @@ CREATE TABLE jobs (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id BIGINT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id),
+  title TEXT,
+  company TEXT,
   fav BOOLEAN,
   remote VARCHAR(6),
   zipcode INTEGER,
@@ -32,3 +34,5 @@ CREATE TABLE jobs (
   contact TEXT
 );
 
+INSERT INTO users (username, password_hash)
+VALUES ('bop-simon', 'helloworld');
