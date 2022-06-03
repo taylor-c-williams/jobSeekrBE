@@ -27,6 +27,7 @@ const mockJob = {
   description: 'A cool job',
   notes: 'Alanis Morissette is canadian',
   contact: 'Alanis (208) 772-5555',
+  salary: '$5',
 };
 
 const mockJob2 = {
@@ -48,6 +49,7 @@ const mockJob2 = {
   description: 'A cool job',
   notes: 'Taylor is Cool',
   contact: 'hello@tayloriscool.com',
+  salary: '$5',
 };
 
 // Dummy user object

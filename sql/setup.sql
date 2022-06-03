@@ -31,7 +31,8 @@ CREATE TABLE jobs (
   url VARCHAR(256),
   description TEXT,
   notes TEXT,
-  contact TEXT
+  contact TEXT,
+  salary TEXT
 );
 
 INSERT INTO users (username, password_hash)
