@@ -31,7 +31,8 @@ CREATE TABLE jobs (
   url VARCHAR(256),
   description TEXT,
   notes TEXT,
-  contact TEXT,
+  contact_name TEXT,
+  contact_email TEXT,
   salary TEXT
 );
 
